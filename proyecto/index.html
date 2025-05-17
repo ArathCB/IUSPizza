@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IUS Pizza!</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: white;
+      color: black;
+      font-family: Arial, sans-serif;
+    }
+
+    .section {
+      width: 100%;
+      height: 100vh;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 1s ease-out, transform 1s ease-out;
+    }
+
+    .section.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .section img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .menu-section,
+    .contact-section {
+      min-height: 100vh;
+      padding: 50px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 1s ease-out, transform 1s ease-out;
+    }
+
+    .menu-section.show,
+    .contact-section.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .menu-title,
+    .contact-title {
+      font-size: 3rem;
+      font-weight: bold;
+      background-color: white;
+      color: rgb(0, 0, 0);
+      padding: 20px 40px;
+      border-radius: 10px;
+      margin-bottom: 40px;
+    }
+
+    .menu-images,
+    .contact-images {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .menu-images img {
+      width: 500px;
+      height: 600px;
+      object-fit: contain;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.705);
+    }
+
+    .contact-images img {
+      width: 300px;
+      height: 400px;
+      object-fit: cover;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .social-media {
+      margin-top: 40px;
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .social-media img {
+      width: 120px;
+      height: 120px;
+      transition: transform 0.3s ease;
+    }
+
+    .social-media img:hover {
+      transform: scale(1.2);
+    }
+
+    .privacy-bar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: white;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ccc;
+  z-index: 1000;
+  font-size: 14px;
+}
+
+.privacy-link {
+  color: #333;
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+.privacy-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.btn {
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+  font-size: 13px;
+  border-radius: 4px;
+  text-decoration: none;
+}
+
+.btn.accept {
+  background-color: #333;
+  color: white;
+}
+
+.btn.reject {
+  background-color: white;
+  color: #333;
+  border: 1px solid #999;
+}
+
+  </style>
+</head>
+<body>
+  <audio id="fondoAudio" loop>
+    <source src="Ms.mp3" type="audio/mpeg">
+    Tu navegador no soporta audio.
+  </audio>
+  
+
+  <div class="privacy-bar">
+    <a href="AvisoPriv.pdf" class="privacy-link" target="_blank">Cookies y Aviso de privacidad</a>
+    <div class="privacy-buttons">
+      <button class="btn accept">Aceptar</button>
+      <button class="btn reject">Rechazar</button>
+    </div>
+  </div>  
+
+  <div class="section">
+    <img src="1.png" alt="Imagen 1" />
+  </div>
+  <div class="section">
+    <img src="2.png" alt="Imagen 2" />
+  </div>
+  <div class="section">
+    <img src="3.png" alt="Imagen 3" />
+  </div>
+
+  <div class="menu-section">
+    <h1 class="menu-title">IUS MENÚ</h1>
+    <div class="menu-images">
+      <img src="menu2.png" alt="Platillo 1" />
+      <img src="menu1.png" alt="Platillo 2" />
+    </div>
+  </div>
+
+  <div class="contact-section">
+    <h1 class="contact-title">Contactanos!</h1>
+
+    <div class="social-media">
+      <a href="https://www.facebook.com/share/15AnKdoUHc/?mibextid=wwXIfr" target="_blank">
+        <img src="face.png" alt="Facebook" />
+      </a>
+      <a href="https://instagram.com/ius_pizza" target="_blank">
+        <img src="Instagram.jpg" alt="Instagram" />
+      </a>
+      <a href="https://wa.me/4421866670" target="_blank">
+        <img src="Whats.png" alt="WhatsApp" />
+      </a>
+    </div>
+  </div>
+
+  <script>
+    const sections = document.querySelectorAll('.section, .menu-section, .contact-section');
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+        }
+      });
+    }, {
+      threshold: 0.1
+    });
+
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+  </script>
+
+<script>
+  const acceptBtn = document.querySelector('.btn.accept');
+  const rejectBtn = document.querySelector('.btn.reject');
+  const privacyBar = document.querySelector('.privacy-bar');
+  const audio = document.getElementById('fondoAudio');
+
+  acceptBtn.addEventListener('click', () => {
+    privacyBar.style.display = 'none';
+    audio.volume = 0.05;
+    audio.play();
+  });
+
+  rejectBtn.addEventListener('click', () => {
+    privacyBar.style.display = 'none';
+  });
+</script>
+
+
+
+</body>
+</html>
